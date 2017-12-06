@@ -1,17 +1,13 @@
 <template>
-    <div>
-        查找页面
-    </div>
+  <div>
+      112111123123
+  </div>
 </template>
 <script>
-    export default {
-        data(){
-            return {
-
-            }
-        }
-    }
+export default {
+  
+}
 </script>
 <style>
-    
+
 </style>

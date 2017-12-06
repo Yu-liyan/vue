@@ -1,17 +1,15 @@
 <template>
-    <div>
-      会员页面
-    </div>
+  <div>
+      112111
+  </div>
 </template>
 <script>
-    export default {
-        data(){
-            return {
-
-            }
-        }
-    }
+export default {
+  
+}
 </script>
 <style>
-    
+
 </style>
+
+

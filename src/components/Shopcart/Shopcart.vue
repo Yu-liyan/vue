@@ -1,17 +1,13 @@
 <template>
-    <div>
-        购物车
-    </div>
+  <div>
+      搜索页面
+  </div>
 </template>
 <script>
-    export default {
-        data(){
-            return {
-
-            }
-        }
-    }
+export default {
+  
+}
 </script>
 <style>
-    
+
 </style>
