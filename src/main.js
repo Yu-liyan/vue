@@ -13,6 +13,10 @@ import PhotoList from './components/photo/PhotoList.vue';
 import PhotoDetail from './components/photo/PhotoDetail.vue';
 // 引入测试路由---评论
 import Comment from './components/Commons/Comments.vue';
+//引入商品列表路由
+import GoodsList from './components/Goods/GoodsList.vue';
+
+
 
 
 // 注册全局组件
@@ -61,6 +65,7 @@ router.addRoutes([
     {name:'photo.list',path:'/home/photoList/:categoryId',component:PhotoList},//图文分享列表
     {name:'photo.detail',path:'/home/photoDetail/:imgId',component:PhotoDetail},//商品缩略图详情
     { name:'test',path:'/test',component:Comment},//测试评论的路由
+    {name:'goods.list',path:'/home/goodsList',component:GoodsList},//商品列表路由
 
 ])
 // vue-router 结束

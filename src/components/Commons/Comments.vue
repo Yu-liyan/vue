@@ -10,10 +10,10 @@
                     </div>
                 </li>
                 <li class="txt-comment">
-                    <textarea></textarea>
+                    <textarea v-model="commentContent"></textarea>
                 </li>
                 <li>
-                    <mt-button size="large" type="primary">发表评论</mt-button>
+                    <mt-button size="large" type="primary" @click="subComment">发表评论</mt-button>
                 </li>
                 <li class="photo-comment">
                     <div>
@@ -34,27 +34,63 @@
 </template>
 <script>
 export default {
+ 
     data(){
         return{
             comments:[],//用于存放通过具体id获取到的具体的页码中的评论信息
             page:1,
-            
+            id:this.$route.query.id || 88,
+            commentContent:'',//发表的评论内容
+            content:''
         }
     },
     methods:{
+        // 当点击提交评论，(将评论的内容提交到服务器。。。。。做的时候将这个忘记了)，之后自动跳转到第一页，并且新提交的评论默认在第一条
+        subComment(){
+            this.$axios.post(`postcomment/${this.id}` ,
+                `content = ${this.commentContent}` )
+            .then(res=>{
+                console.log(this.commentContent)
+                this.$axios.get('getcomments/'+this.id+'?pageindex='+this.page)
+                .then(res=>{
+                   
+                    this.comments = res.data.message;
+                    // this.page++;
+                    console.log(this.comments[0])
+                })
+                .catch(err=>console.log(err))
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+            
+        },
         loadMore(){
-
+            // 当点击加载更多，也是根据页码值获取数据，当页面创建数据初始化结束，让页码自增，在点击加载更多的时候
+            // 就可以直接使用，然后将数据追加到comments数组中，而不是替换，然后也要让页码自增 
+             this.$axios.get('getcomments/'+this.id+'?pageindex='+ (++this.page))
+             .then(res=>{
+                 this.comments = this.comments.concat(res.data.message);
+                 console.log(this.comments);
+             })
+             .catch(err=>{
+                 console.log(err)
+             })
+            //  this.page++;
         }
     },
     created(){
+        this.id = 88;
         // 当组件被创建完成才能继续接下来的操作
         // 先将id与页面写死，测试能否返回数据，然后在继续下一步
-        let id = 88;
-       this.page = this.$route.auery.pageIndex || 1;
-        this.$axios.get('getcomments/'+id+'?pageindex='+ this.page)
+        
+       this.page = this.$route.query.pageindex || 1;
+    //    这里可以用字符串拼接也可以用模版字符串
+    // this.$axios.get(`getcomments/${id}?pageindex=${this.page}`)
+        this.$axios.get('getcomments/'+this.id+'?pageindex='+ this.page)
         .then(res=>{
             this.comments = res.data.message;
-            console.log(this.comments)
+            // this.page++;
         })
         .catch(err=>console.log(err))
     }
@@ -80,10 +116,13 @@ export default {
 
 .txt-comment {
     padding: 5 5;
+    
 }
 
 .txt-comment textarea {
     margin-bottom: 5px;
+    width:99%;
+
 }
 
 .comment-list li {

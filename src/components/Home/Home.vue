@@ -49,7 +49,7 @@ export default {
       },{
           className:'goods',
           title:'商品列表',
-           router:{name:'news.list'}
+           router:{name:'goods.list',params:{goodsId:1}}
           
       },{
           className:'feedback',
